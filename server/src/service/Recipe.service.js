@@ -1,24 +1,24 @@
-const { Task } = require('../db/models');
+//! пробная версия слияния
 
 // Сервис будет реализовывать набор CRUD-операций
 
-class TaskService {
+class RecipeService {
   // Получаем все задачи
-  static async getAllTasks() {
-    return await Task.findAll();
+  static async getAllRecipes() {
+    return await Recipe.findAll();
   }
   // Получаем одну задачу по ID
-  static async getTaskById(id) {
-    return await Task.findByPk(id);
+  static async getRecipeById(id) {
+    return await Recipe.findByPk(id);
   }
   // Создаем новую задачу
-  static async createNewTask(taskData) {
-    return await Task.create(taskData);
+  static async createNewRecipe(recipeData) {
+    return await Recipe.create(recipeData);
   }
 
   // Удаляем задачу по ID
-  static async deleteTaskById(id, userId) {
-    const taskToDelete = await Task.findByPk(id);
+  static async deleteRecipeById(id, userId) {
+    const taskToDelete = await Recipe.findByPk(id);
 
     // Если такой задачи не существует, вернем null
     if (!taskToDelete) return null;
