@@ -1,4 +1,4 @@
-//! пробная версия слияния
+const { Recipe } = require("../db/models");
 
 // Сервис будет реализовывать набор CRUD-операций
 
@@ -18,38 +18,38 @@ class RecipeService {
 
   // Удаляем задачу по ID
   static async deleteRecipeById(id, userId) {
-    const taskToDelete = await Recipe.findByPk(id);
+    const recipeToDelete = await Recipe.findByPk(id);
 
     // Если такой задачи не существует, вернем null
-    if (!taskToDelete) return null;
+    if (!recipeToDelete) return null;
 
     // Закрываем уязвимость IDOR - проверяем авторство задачи
-    if (taskToDelete.user_id !== userId) return null;
+    if (recipeToDelete.user_id !== userId) return null;
 
-    return await taskToDelete.destroy();
+    return await recipeToDelete.destroy();
   }
 
   // Обновляем задачу по ID
-  static async updateTaskById(id, taskData) {
-    const taskToUpdate = await Task.findByPk(id);
+  static async updateRecipeById(id, recipeData) {
+    const recipeToUpdate = await Recipe.findByPk(id);
 
-    const { title, text } = taskData;
+    const { title, text } = recipeData;
 
     // Если такой задачи не существует, вернем null
-    if (!taskToUpdate) return null;
+    if (!recipeToUpdate) return null;
 
     // Точечно обновляем поля в объекте задачи
     if (title) {
-      taskToUpdate.title = title;
+      recipeToUpdate.title = title;
     }
     if (text) {
-      taskToUpdate.text = text;
+      recipeToUpdate.text = text;
     }
     // сохраняем изменения в БД
-    await taskToUpdate.save();
+    await recipeToUpdate.save();
 
-    return taskToUpdate;
+    return recipeToUpdate;
   }
 }
 
-module.exports = TaskService;
+module.exports = RecipeService;
