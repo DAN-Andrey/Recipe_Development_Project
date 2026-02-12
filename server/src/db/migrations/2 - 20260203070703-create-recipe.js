@@ -2,23 +2,36 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("Tasks", {
+    await queryInterface.createTable("Recipe", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
+        notNull: true,
       },
       title: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      text: {
-        type: Sequelize.STRING,
+      image: {
+        type: Sequelize.TEXT,
+      },
+      time: {
+        type: Sequelize.INTEGER,
+      },
+      ingredients: {
+        type: Sequelize.TEXT,
+        allowNull: false,
+      },
+      instructions: {
+        type: Sequelize.TEXT,
         allowNull: false,
       },
       user_id: {
         type: Sequelize.INTEGER,
+        allowNull: false,
+        onDelete: "CASCADE",
         references: {
           model: "Users",
           key: "id",
@@ -37,6 +50,6 @@ module.exports = {
     });
   },
   async down(queryInterface) {
-    await queryInterface.dropTable("Tasks");
+    await queryInterface.dropTable("Recipe");
   },
 };
