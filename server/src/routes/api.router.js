@@ -3,10 +3,11 @@ const taskRouter = require("./task.router");
 const authRouter = require("./auth.router");
 const aiRouter = require("./ai.router");
 const formatResponse = require("../utils/formatResponse");
+const recipeRouter = require("./recipe.router");
 
-apiRouter.use("/tasks", taskRouter);
 apiRouter.use("/auth", authRouter);
 apiRouter.use("/ai", aiRouter);
+apiRouter.use("/recipe", recipeRouter);
 
 // Обрабатываем несуществующие пути в API
 apiRouter.use((req, res) => {
