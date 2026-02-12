@@ -61,6 +61,12 @@ class RecipeService {
 
     return recipeToUpdate;
   }
+  // Получаем все рецепты конкретного пользователя по его ID
+  static async getRecipesByUserId(userId) {
+    return await Recipe.findAll({
+      where: { user_id: userId },
+    });
+  }
 }
 
 module.exports = RecipeService;
