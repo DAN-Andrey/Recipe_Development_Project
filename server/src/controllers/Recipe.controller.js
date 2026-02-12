@@ -15,31 +15,34 @@ class RecipeController {
       const recipes = rawRecipes.map((recipe) => recipe.get());
 
       res.send(`
-        <div style="width: 50vw; margin: 0 auto;">
-          <form
-        action="/api/recipes"
-        method="post"
-        style="display: flex; flex-direction: column; gap: 10px"
-      >
-        <input type="text" name="title" placeholder="Название" />
-        <input type="text" name="description" placeholder="Описание" />
-        <button type="submit">Отправить</button>
-      </form>
-          ${recipes
-            .map(
-              (recipe) => `
-            <div style="text-align: center; padding: 10px; margin: 15px 0; background-color: whitesmoke; border-radius: 8px; box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.1)">
-              <h2>${recipe.title}</h2>
-              <p>${recipe.description}</p>
-              ${recipe.image ? `<img src="${recipe.image}" alt="${recipe.title}" style="max-width: 300px;" />` : ""}
-              <p>Время: ${recipe.cooking_time || "не указано"} мин | Ингредиентов: ${recipe.ingredients_count || "не указано"}</p>
-            </div>
-            `,
-            )
-            .join("")
-            .replace(",", "")}
-        </div>
-        `);
+      <div style="width: 50vw; margin: 0 auto;">
+        <form
+          action="/api/recipes"
+          method="post"
+          style="display: flex; flex-direction: column; gap: 10px"
+        >
+          <input type="text" name="title" placeholder="Название блюда" />
+          <input type="text" name="description" placeholder="Описание рецепта" />
+          <input type="text" name="image" placeholder="Ссылка на фото" />
+          <input type="number" name="cooking_time" placeholder="Время приготовления (мин)" />
+          <input type="number" name="ingredients_count" placeholder="Количество ингредиентов" />
+          <button type="submit">Отправить</button>
+        </form>
+        ${recipes
+          .map(
+            (recipe) => `
+          <div style="text-align: center; padding: 10px; margin: 15px 0; background-color: whitesmoke; border-radius: 8px; box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.1)">
+            <h2>${recipe.title}</h2>
+            <p>${recipe.description}</p>
+            ${recipe.image ? `<img src="${recipe.image}" alt="${recipe.title}" style="max-width: 300px;" />` : ""}
+            <p>Время: ${recipe.cooking_time || "не указано"} мин | Ингредиентов: ${recipe.ingredients_count || "не указано"}</p>
+          </div>
+        `,
+          )
+          .join("")
+          .replace(",", "")}
+      </div>
+    `);
     } catch (error) {
       console.log("==== RecipeController.viewRecipesPage ==== ");
       console.log(error);
@@ -91,13 +94,11 @@ class RecipeController {
       if (recipes.length === 0) {
         return res
           .status(200)
-          .json(formatResponse(200, "У Вас пока нет рецептов", [], null));
+          .json(formatResponse(200, "У Вас пока нет рецептумов", [], null));
       }
       res
         .status(200)
-        .json(
-          formatResponse(200, "Данные Ваши рецепт получены", recipes, null),
-        );
+        .json(formatResponse(200, "Ваши рецептумы получены", recipes, null));
     } catch (error) {
       console.log("==== RecipeController.getMyRecipes ==== ");
       console.log(error);
