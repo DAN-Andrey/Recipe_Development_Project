@@ -11,8 +11,8 @@ git commit -m "create dev container"
 git checkout dev
 git pull  // или git fetch + git merge
 Вернись к себе в локальную ветку и выполни слияние в нее обновленной ветки dev
-git checkout название_ветки
-git pull origin dev или   git merge origin/dev (как бы предлогает смержить в вскоде)  
+git checkout название*ветки
+git pull origin dev или git merge origin/dev (как бы предлогает смержить в вскоде)  
 При наличии конфликтов мержа, устрани их в коде и сделай коммит
 git commit -m "merge dev into styles"
 Запушь свою обновлённую ветку на сервер GitHub
