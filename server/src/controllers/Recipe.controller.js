@@ -71,6 +71,40 @@ class RecipeController {
     }
   }
 
+  static async getMyRecipes(req, res) {
+    try {
+      const { user } = res.locals;
+      if (!user) {
+        return res
+          .status(401)
+          .json(
+            formatResponse(
+              401,
+              "Авторизуйтесь, пожалуйста",
+              null,
+              "Необходима авторизация",
+            ),
+          );
+      }
+
+      const recipes = await RecipeService.getRecipesByUserId(user.id);
+      if (recipes.length === 0) {
+        return res
+          .status(200)
+          .json(formatResponse(200, "У Вас пока нет рецептумов", [], null));
+      }
+      res
+        .status(200)
+        .json(formatResponse(200, "Ваши рецептумы получены", recipes, null));
+    } catch (error) {
+      console.log("==== RecipeController.getMyRecipes ==== ");
+      console.log(error);
+      res
+        .status(500)
+        .json(formatResponse(500, "Внутренняя ошибка сервера", null, error));
+    }
+  }
+
   static async getOneRecipe(req, res) {
     const { id } = req.params;
 

@@ -4,6 +4,7 @@ const verifyAccessToken = require("../middleware/verifyAccessToken");
 
 recipeRouter
   .get("/", RecipeController.getRecipes)
+  .get("/my", verifyAccessToken, RecipeController.getMyRecipes) // новый маршрутум
   .get("/:id", RecipeController.getOneRecipe)
   .post("/", verifyAccessToken, RecipeController.createRecipe)
   .put("/:id", RecipeController.updateRecipe)
