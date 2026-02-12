@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import './MainPage.css';
-import RecipeApi from '../../entities/recipe/api/RecipeApi';
+import React, { useEffect, useState } from "react";
+import "./MainPage.css";
+import RecipeApi from "../../entities/recipe/api/RecipeApi";
+import RecipeCard from "../../entities/recipe/ui/RecipeCard/RecipeCard";
 export default function MainPage({ user }) {
   const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
     async function getRecipes() {
-      const { data, error } = await RecipeApi.getAllRecipes();
+      const { data, error } = await RecipeApi.getAllRecipe();
 
       if (error) {
         alert(error);
@@ -17,7 +18,13 @@ export default function MainPage({ user }) {
     getRecipes();
   }, []);
 
-  const initialFormState = { title: '', text: '' };
+  const initialFormState = {
+    title: "",
+    image: "",
+    time: "",
+    ingredients: "",
+    instructions: "",
+  };
 
   const [newRecipe, setNewRecipe] = useState(initialFormState);
 
@@ -45,35 +52,59 @@ export default function MainPage({ user }) {
   }
 
   return (
-    <div className="app-container">
-      <form onSubmit={addNewRecipe}>
-        <input
-          type="text"
-          name="title"
-          placeholder="Название задачи"
-          onChange={inputChangeHandler}
-          value={newRecipe.title}
-        />
-        <input
-          type="text"
-          name="text"
-          placeholder="Описание задачи"
-          onChange={inputChangeHandler}
-          value={newRecipe.text}
-        />
-        <button>Создать</button>
-      </form>
-      <div className="todo-container">
-        {recipes.map((recipe) => (
-          <RecipeCard
-            key={recipe.id}
-            recipe={recipe}
-            setRecipes={setRecipes}
-            recipes={recipes}
-            user={user}
+    <>
+      <p className="welcome-message">Добро пожаловать!</p>
+      <div className="app-container">
+        <form onSubmit={addNewRecipe}>
+          <input
+            type="text"
+            name="title"
+            placeholder="Название рецепта"
+            onChange={inputChangeHandler}
+            value={newRecipe.title}
           />
-        ))}
+          <input
+            type="text"
+            name="image"
+            placeholder="URL изображения"
+            onChange={inputChangeHandler}
+            value={newRecipe.image}
+          />
+          <input
+            type="number"
+            name="time"
+            placeholder="Время готовки (мин)"
+            onChange={inputChangeHandler}
+            value={newRecipe.time}
+          />
+          <input
+            type="text"
+            name="ingredients"
+            placeholder="Ингредиенты"
+            onChange={inputChangeHandler}
+            value={newRecipe.ingredients}
+          />
+          <input
+            type="text"
+            name="instructions"
+            placeholder="Инструкции"
+            onChange={inputChangeHandler}
+            value={newRecipe.instructions}
+          />
+          <button>Создать</button>
+        </form>
+        <div className="todo-container">
+          {recipes.map((recipe) => (
+            <RecipeCard
+              key={recipe.id}
+              recipe={recipe}
+              setRecipes={setRecipes}
+              recipes={recipes}
+              user={user}
+            />
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
