@@ -1,6 +1,6 @@
-const viewRouter = require('express').Router();
-const TaskController = require('../controllers/Task.controller');
+// const viewRouter = require('express').Router();
+// const RecipeController = require('../controllers/Recipe.controller');
 
-viewRouter.get('/', TaskController.viewTasksPage);
+// viewRouter.get('/', RecipeController.viewRecipesPage);
 
-module.exports = viewRouter;
+// module.exports = viewRouter;

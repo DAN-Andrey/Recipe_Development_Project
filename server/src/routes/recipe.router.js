@@ -3,7 +3,7 @@ const RecipeController = require("../controllers/Recipe.controller");
 const verifyAccessToken = require("../middleware/verifyAccessToken");
 
 recipeRouter
-  .get("/", RecipeController.getRecipe)
+  .get("/", RecipeController.getRecipes)
   .get("/:id", RecipeController.getOneRecipe)
   .post("/", verifyAccessToken, RecipeController.createRecipe)
   .put("/:id", RecipeController.updateRecipe)
