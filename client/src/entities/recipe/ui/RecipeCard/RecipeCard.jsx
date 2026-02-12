@@ -6,20 +6,23 @@ import { CLIENT_ROUTES } from "../../../../shared/consts/clientRoutes";
 import RecipeApi from "../../api/RecipeApi";
 import AiApi from "../../../../features/ai/api/AiApi";
 
-export default function TaskCard({ recipe, recipes, setRecipes, user }) {
+export default function RecipeCard({ recipe, recipes, setRecipes, user }) {
   const navigate = useNavigate();
 
   const [plan, setPlan] = useState("");
 
   const [isEditing, setIsEditing] = useState(false);
 
-  const [editedTask, setEditedTask] = useState({
+  const [editedRecipe, setEditedRecipe] = useState({
     title: recipe.title,
     text: recipe.text,
+    time: recipe.time,
+    ingredients: recipe.ingredients,
+    instructions: recipe.instructions,
   });
 
   const inputHandler = (event) => {
-    setEditedTask((current) => ({
+    setEditedRecipe((current) => ({
       ...current,
       [event.target.name]: event.target.value,
     }));
@@ -27,82 +30,91 @@ export default function TaskCard({ recipe, recipes, setRecipes, user }) {
 
   const generatePlan = async () => {
     const { statusCode, data } = await AiApi.generateText({
-      title: task.title,
-      text: task.text,
+      title: recipe.title,
+      text: recipe.text,
+      time: recipe.time,
+      ingredients: recipe.ingredients,
+      instructions: recipe.instructions,
     });
     if (statusCode === 200) {
       setPlan(data);
     }
   };
 
-  const updateTask = async (id) => {
-    const { statusCode, data } = await RecipeApi.updateTask(id, editedTask);
+  const updateRecipe = async (id) => {
+    const { statusCode, data } = await RecipeApi.updateRecipe(id, editedRecipe);
 
     if (statusCode === 200) {
-      setTasks(tasks.map((task) => (task.id === id ? data : task)));
+      setRecipes(recipes.map((recipe) => (recipe.id === id ? data : recipe)));
       setIsEditing(false);
-      setEditedTask({ title: data.title, text: data.text });
+      setEditedRecipe({
+        title: recipe.title,
+        text: recipe.text,
+        time: recipe.time,
+        ingredients: recipe.ingredients,
+        instructions: recipe.instructions,
+      });
     }
   };
 
-  const deleteTask = async (id) => {
-    const { statusCode } = await RecipeApi.deleteTask(id);
+  const deleteRecipe = async (id) => {
+    const { statusCode } = await RecipeApi.deleteRecipe(id);
 
     if (statusCode === 200) {
-      setTasks(tasks.filter((task) => task.id !== id));
+      setRecipes(recipes.filter((recipe) => recipe.id !== id));
     }
   };
 
   return (
-    <div className="task">
-      <div className="task-title">
+    <div className="recipe">
+      <div className="recipe-title">
         {isEditing ? (
           <input
             type="text"
             name="title"
-            className="task-title-input"
-            value={editedTask.title}
+            className="recipe-title-input"
+            value={editedRecipe.title}
             onChange={inputHandler}
           />
         ) : (
-          <h2 className="task-name">{task.title}</h2>
+          <h2 className="recipe-name">{recipe.title}</h2>
         )}
         <small>
-          Добавлено: {new Date(task.createdAt).toLocaleString("ru-RU")}
+          Добавлено: {new Date(recipe.createdAt).toLocaleString("ru-RU")}
         </small>
       </div>
 
-      <div className="task-content">
+      <div className="recipe-content">
         {isEditing ? (
           <textarea
             rows={2}
             cols={55}
             name="text"
-            className="task-text-input"
-            value={editedTask.text}
+            className="recipe-text-input"
+            value={editedRecipe.text}
             onChange={inputHandler}
           />
         ) : (
-          <p className="task-text">{task.text}</p>
+          <p className="recipe-text">{recipe.text}</p>
         )}
 
-        <div className="task-controls">
-          {user?.id === task.user_id &&
+        <div className="recipe-controls">
+          {user?.id === recipe.user_id &&
             (isEditing ? (
               <>
                 <button
-                  className="task-control-button save-task-button"
+                  className="recipe-control-button save-recipe-button"
                   title="Сохранить"
-                  onClick={() => updateTask(task.id)}
+                  onClick={() => updateRecipe(recipe.id)}
                 >
                   <Check color="white" />
                 </button>
                 <button
                   onClick={() => {
                     setIsEditing(false);
-                    setEditedTask(task);
+                    setEditedRecipe(recipe);
                   }}
-                  className="task-control-button delete-task-button"
+                  className="recipe-control-button delete-recipe-button"
                   title="Отменить"
                 >
                   <X color="white" />
@@ -111,15 +123,15 @@ export default function TaskCard({ recipe, recipes, setRecipes, user }) {
             ) : (
               <>
                 <button
-                  className="edit-task-button task-control-button"
+                  className="edit-recipe-button recipe-control-button"
                   title="Редактировать"
                   onClick={() => setIsEditing(true)}
                 >
                   <Pencil color="white" />
                 </button>
                 <button
-                  className="delete-task-button task-control-button"
-                  onClick={() => deleteTask(task.id)}
+                  className="delete-recipe-button recipe-control-button"
+                  onClick={() => deleteRecipe(recipe.id)}
                   title="Удалить"
                 >
                   <Trash color="white" />
@@ -127,7 +139,7 @@ export default function TaskCard({ recipe, recipes, setRecipes, user }) {
               </>
             ))}
           <button
-            className="task-control-button ai-button"
+            className="recipe-control-button ai-button"
             onClick={generatePlan}
             title="Генерировать план выполнения задачи"
           >
@@ -135,8 +147,8 @@ export default function TaskCard({ recipe, recipes, setRecipes, user }) {
           </button>
 
           <button
-            className="task-control-button details-button"
-            onClick={() => navigate(`${CLIENT_ROUTES.TASKS}/${task.id}`)}
+            className="recipe-control-button details-button"
+            onClick={() => navigate(`${CLIENT_ROUTES.TASKS}/${recipe.id}`)}
             title="Подробнее"
           >
             <ChevronRight />

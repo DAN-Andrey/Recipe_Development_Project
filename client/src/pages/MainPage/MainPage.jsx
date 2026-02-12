@@ -1,75 +1,75 @@
 import React, { useEffect, useState } from 'react';
 import './MainPage.css';
-
+import RecipeApi from '../../entities/recipe/api/RecipeApi';
 export default function MainPage({ user }) {
-  const [tasks, setTasks] = useState([]);
+  const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
-    async function getTasks() {
-      const { data, error } = await TaskApi.getAllTasks();
+    async function getRecipes() {
+      const { data, error } = await RecipeApi.getAllRecipes();
 
       if (error) {
         alert(error);
         return;
       }
-      setTasks(data);
+      setRecipes(data);
     }
-    getTasks();
+    getRecipes();
   }, []);
 
   const initialFormState = { title: '', text: '' };
 
-  const [newTask, setNewTask] = useState(initialFormState);
+  const [newRecipe, setNewRecipe] = useState(initialFormState);
 
   function inputChangeHandler(event) {
     const { name, value } = event.target;
-    setNewTask((current) => ({
+    setNewRecipe((current) => ({
       ...current,
       [name]: value,
     }));
   }
 
-  async function addNewTask(event) {
+  async function addNewRecipe(event) {
     event.preventDefault();
 
-    const { data, error } = await TaskApi.createTask(newTask);
-    setTasks((current) => [...current, data]);
+    const { data, error } = await RecipeApi.createRecipe(newRecipe);
+    setRecipes((current) => [...current, data]);
 
-    setNewTask(initialFormState);
+    setNewRecipe(initialFormState);
   }
 
-  async function deleteTask(id) {
-    const response = await TaskApi.deleteTask(id);
+  async function deleteRecipe(id) {
+    const response = await RecipeApi.deleteRecipe(id);
 
-    setTasks((current) => current.filter((task) => task.id !== id));
+    setRecipes((current) => current.filter((recipe) => recipe.id !== id));
   }
 
   return (
     <div className="app-container">
-      <form onSubmit={addNewTask}>
+      <form onSubmit={addNewRecipe}>
         <input
           type="text"
           name="title"
           placeholder="Название задачи"
           onChange={inputChangeHandler}
-          value={newTask.title}
+          value={newRecipe.title}
         />
         <input
           type="text"
           name="text"
           placeholder="Описание задачи"
           onChange={inputChangeHandler}
-          value={newTask.text}
+          value={newRecipe.text}
         />
         <button>Создать</button>
       </form>
       <div className="todo-container">
-        {tasks.map((task) => (
-          <TaskCard
-            key={task.id}
-            task={task}
-            setTasks={setTasks}
-            tasks={tasks}
+        {recipes.map((recipe) => (
+          <RecipeCard
+            key={recipe.id}
+            recipe={recipe}
+            setRecipes={setRecipes}
+            recipes={recipes}
             user={user}
           />
         ))}
