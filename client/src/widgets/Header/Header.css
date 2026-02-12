@@ -1,29 +1,266 @@
-nav {
-  display: flex;
-  gap: 35px;
-  justify-content: center;
-  height: 50px;
-  margin-bottom: 20px;
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
+
+.header {
+  background: #ffffff;
+  border-bottom: 1px solid #f0e7db;
+  font-family: "Inter", sans-serif;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(8px);
+  background: rgba(255, 255, 255, 0.98);
 }
 
-.navlink {
-  text-decoration: none;
-  text-transform: uppercase;
-  color: rgb(23, 23, 23);
-  font-size: 20px;
-  padding: 20px 10px;
-  border-radius: 8px;
+.header__container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 16px 32px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+/* ----- ЛОГОТИП ----- */
+.header__logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+.header__logo:hover {
+  opacity: 0.8;
+}
+
+.header__logo-icon {
+  font-size: 24px;
+  color: #d7a86e;
+  transition: transform 0.2s ease;
+}
+
+.header__logo:hover .header__logo-icon {
+  transform: rotate(-5deg);
+}
+
+.header__logo-text {
+  font-size: 20px;
+  font-weight: 500;
+  color: #3e2e23;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+
+/* ----- НАВИГАЦИЯ ----- */
+.header__nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex: 1;
   justify-content: center;
-  background-color: white;
-  transition: background-color 0.3s ease;
 }
 
-.navlink:hover {
-  background-color: beige;
+/* ----- ПОЛЬЗОВАТЕЛЬСКОЕ МЕНЮ ----- */
+.header__user {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  white-space: nowrap;
 }
 
-.navlink.active {
-  background-color: rgb(236, 236, 236);
+/* ----- ССЫЛКИ (ОБЩИЕ) ----- */
+.header__link {
+  background: none;
+  border: none;
+  font-size: 15px;
+  font-weight: 400;
+  color: #5c4c3a;
+  text-decoration: none;
+  padding: 6px 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: "Inter", sans-serif;
+  border-bottom: 1px solid transparent;
+  letter-spacing: 0.2px;
+}
+
+.header__link:hover {
+  color: #d7a86e;
+  border-bottom-color: #d7a86e;
+}
+
+.header__link--active {
+  color: #d7a86e;
+  border-bottom-color: #d7a86e;
+  font-weight: 500;
+}
+
+/* Специальный стиль для кнопки выхода */
+.header__link--button {
+  padding: 6px 0;
+  background: none;
+  border: none;
+  border-bottom: 1px solid transparent;
+  cursor: pointer;
+}
+
+/* ----- ИМЯ ПОЛЬЗОВАТЕЛЯ ----- */
+.header__username {
+  font-size: 15px;
+  font-weight: 400;
+  color: #8b6b4d;
+  background: #fcf8f3;
+  padding: 4px 12px;
+  border-radius: 30px;
+  border: 1px solid #f0e7db;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.header__username::before {
+  content: "🦫";
+  font-size: 14px;
+  color: #d7a86e;
+}
+
+/* ----- ИЗБРАННОЕ (добавим позже) ----- */
+.header__favorite {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.header__favorite::before {
+  content: "♥";
+  color: #d7a86e;
+  font-size: 16px;
+}
+
+/* ----- DROPDOWN MENU ----- */
+.header__dropdown {
+  position: absolute;
+  right: 32px;
+  top: 64px;
+  background: #ffffff;
+  border: 1px solid #f0e7db;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  padding: 8px 0;
+  z-index: 1100;
+  min-width: 160px;
+}
+
+.header__dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 10px 16px;
+  background: none;
+  border: none;
+  text-align: left;
+  color: #5c4c3a;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.header__dropdown-item:hover {
+  background: #fcf8f3;
+  color: #d7a86e;
+}
+
+/* ----- АДАПТИВНОСТЬ ----- */
+@media (max-width: 1024px) {
+  .header__container {
+    padding: 16px 24px;
+    flex-wrap: wrap;
+  }
+
+  .header__logo-text {
+    font-size: 18px;
+  }
+
+  .header__nav {
+    order: 3;
+    flex: 0 0 100%;
+    justify-content: flex-start;
+    padding-top: 12px;
+    margin-top: 4px;
+    border-top: 1px solid #f0e7db;
+  }
+}
+
+@media (max-width: 768px) {
+  .header__container {
+    padding: 16px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .header__logo {
+    justify-content: center;
+  }
+
+  .header__logo-text {
+    white-space: normal;
+    text-align: center;
+  }
+
+  .header__nav {
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+  }
+
+  .header__user {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .header__nav {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .header__user {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .header__link {
+    text-align: center;
+    display: block;
+    padding: 8px 0;
+  }
+
+  .header__username {
+    justify-content: center;
+  }
+}
+
+/* ----- АНИМАЦИИ ----- */
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+.header__logo-icon {
+  animation: bounce 3s ease infinite;
+}
+
+/* ----- СКРОЛЛ ----- */
+.header {
+  transition: box-shadow 0.2s ease;
+}
+
+.header--scrolled {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
 }

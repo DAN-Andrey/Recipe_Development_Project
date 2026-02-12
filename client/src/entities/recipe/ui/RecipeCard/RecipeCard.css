@@ -1,106 +1,337 @@
-.task {
-  width: 100%;
-  background-color: whitesmoke;
+
+.recipe-card {
+  background: #FFFFFF;
+  border-radius: 20px;
   padding: 20px;
-  border-radius: 8px;
-  transition: transform 0.3s ease;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.03);
+  border: 1px solid #F0E7DB;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-family: 'Inter', sans-serif;
+  position: relative;
 }
 
-.task:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+.recipe-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
 }
-.task-content {
+
+/* ----- ШАПКА КАРТОЧКИ ----- */
+.recipe-card__header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
+  border-bottom: 1px solid #F0E7DB;
+  padding-bottom: 12px;
 }
 
-.task-name {
-  margin-top: 0;
-  font-size: 28px;
-}
-
-.task-title-input {
-  margin-top: 0;
-  margin-bottom: 19px;
-  font-size: 28px;
-  font-weight: 600;
-  border: none;
-  padding: 0;
-  outline: none;
-}
-
-.task-text-input {
-  border: none;
-  outline: none;
-  padding: 0;
-  font-style: italic;
-  resize: none;
-}
-
-.task-text {
+.recipe-card__title {
+  font-size: 18px;
+  font-weight: 500;
+  color: #3E2E23;
   margin: 0;
-  font-style: italic;
-}
-
-.task-controls {
-  display: flex;
-  gap: 10px;
-}
-
-.task-control-button {
-  border: none;
-  border-radius: 8px;
-  transition: background-color 0.3s ease;
+  line-height: 1.4;
   cursor: pointer;
-  padding: 5px;
-  width: 32px;
-  height: 32px;
+  transition: color 0.2s ease;
+  max-width: 70%;
+}
+
+.recipe-card__title:hover {
+  color: #D7A86E;
+}
+
+.recipe-card__date {
+  font-size: 12px;
+  color: #8B6B4D;
+  font-weight: 400;
+  background: #FCF8F3;
+  padding: 4px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+/* ----- РЕЖИМ РЕДАКТИРОВАНИЯ ----- */
+.recipe-card__title-input {
+  font-size: 18px;
+  font-weight: 500;
+  color: #3E2E23;
+  border: 1px solid #F0E7DB;
+  border-radius: 12px;
+  padding: 8px 12px;
+  width: 70%;
+  font-family: 'Inter', sans-serif;
+  background: #FCF8F3;
+  transition: all 0.2s ease;
+}
+
+.recipe-card__title-input:focus {
+  outline: none;
+  border-color: #D7A86E;
+  box-shadow: 0 0 0 3px rgba(215, 168, 110, 0.08);
+  background: #FFFFFF;
+}
+
+/* ----- КОНТЕНТ КАРТОЧКИ ----- */
+.recipe-card__content {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  gap: 16px;
 }
 
-.delete-task-button {
-  background-color: #ff8d84;
+.recipe-card__text {
+  color: #5C4C3A;
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0;
+  background: #FCF8F3;
+  padding: 12px 16px;
+  border-radius: 16px;
+  border: 1px solid #F0E7DB;
 }
 
-.delete-task-button:hover {
-  background-color: #ff7268;
+.recipe-card__text-input {
+  font-size: 14px;
+  color: #3E2E23;
+  border: 1px solid #F0E7DB;
+  border-radius: 16px;
+  padding: 12px 16px;
+  font-family: 'Inter', sans-serif;
+  background: #FCF8F3;
+  resize: vertical;
+  min-height: 80px;
+  transition: all 0.2s ease;
 }
 
-.details-button {
-  background-color: #d2d2d2;
+.recipe-card__text-input:focus {
+  outline: none;
+  border-color: #D7A86E;
+  box-shadow: 0 0 0 3px rgba(215, 168, 110, 0.08);
+  background: #FFFFFF;
 }
 
-.details-button:hover {
-  background-color: #bbbbbb;
-}
-
-.edit-task-button {
-  background-color: #3b82f6;
-}
-
-.edit-task-button:hover {
-  background-color: #2563eb;
-}
-
-.save-task-button {
-  background-color: #70b77e;
-}
-
-.save-task-button:hover {
-  background-color: #37b750;
-}
-
-.task-title {
+/* ----- МЕТА-ИНФОРМАЦИЯ (ингредиенты и время) ----- */
+.recipe-card__meta {
   display: flex;
   justify-content: space-between;
-  align-items: start;
+  align-items: center;
+  padding: 8px 0;
+  color: #8B6B4D;
+  font-size: 14px;
+  border-top: 1px solid #F0E7DB;
+  margin-top: 4px;
 }
 
-.task-title small {
-  font-style: italic;
-  font-size: 12px;
+.recipe-card__ingredients,
+.recipe-card__time {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.recipe-card__ingredients::before {
+  content: "🥬";
+  font-size: 14px;
+}
+
+.recipe-card__time::before {
+  content: "⏱️";
+  font-size: 14px;
+}
+
+/* ----- ПАНЕЛЬ УПРАВЛЕНИЯ ----- */
+.recipe-card__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.recipe-card__button {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: #FFFFFF;
+  border: 1px solid #F0E7DB;
+  color: #5C4C3A;
+}
+
+.recipe-card__button:hover {
+  transform: scale(1.08);
+  background: #FCF8F3;
+}
+
+.recipe-card__button svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Модификаторы кнопок */
+.recipe-card__button--edit {
+  background: #A7C4B5;
+  border-color: #A7C4B5;
+}
+
+.recipe-card__button--edit svg {
+  color: white !important;
+}
+
+.recipe-card__button--delete {
+  background: #E6B17E;
+  border-color: #E6B17E;
+}
+
+.recipe-card__button--delete svg {
+  color: white !important;
+}
+
+.recipe-card__button--save {
+  background: #A7C4B5;
+  border-color: #A7C4B5;
+}
+
+.recipe-card__button--save svg {
+  color: white !important;
+}
+
+.recipe-card__button--cancel {
+  background: #E6B17E;
+  border-color: #E6B17E;
+}
+
+.recipe-card__button--cancel svg {
+  color: white !important;
+}
+
+.recipe-card__button--ai {
+  background: #F0E7DB;
+  border-color: #F0E7DB;
+}
+
+.recipe-card__button--ai svg {
+  color: #5C4C3A !important;
+}
+
+.recipe-card__button--ai:hover {
+  background: #D7A86E;
+  border-color: #D7A86E;
+}
+
+.recipe-card__button--ai:hover svg {
+  color: white !important;
+}
+
+.recipe-card__button--details {
+  background: #D7A86E;
+  border-color: #D7A86E;
+}
+
+.recipe-card__button--details svg {
+  color: white !important;
+}
+
+.recipe-card__button--details:hover {
+  background: #C1915E;
+  border-color: #C1915E;
+}
+
+/* ----- AI-ПЛАН ----- */
+.recipe-card__plan {
+  background: #FCF8F3;
+  border-radius: 16px;
+  padding: 16px;
+  border-left: 4px solid #D7A86E;
+  margin-top: 8px;
+  animation: fadeIn 0.3s ease;
+}
+
+.recipe-card__plan-title {
+  font-size: 15px;
+  font-weight: 500;
+  color: #3E2E23;
+  margin: 0 0 8px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.recipe-card__plan-text {
+  color: #5C4C3A;
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0;
+  white-space: pre-wrap;
+}
+
+/* ----- АНИМАЦИИ ----- */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ----- АДАПТИВНОСТЬ ----- */
+@media (max-width: 768px) {
+  .recipe-card {
+    padding: 16px;
+  }
+
+  .recipe-card__header {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .recipe-card__title {
+    max-width: 100%;
+  }
+
+  .recipe-card__title-input {
+    width: 100%;
+  }
+
+  .recipe-card__date {
+    align-self: flex-start;
+  }
+
+  .recipe-card__actions {
+    flex-wrap: wrap;
+  }
+}
+
+/* ----- СОСТОЯНИЯ ЗАГРУЗКИ ----- */
+.recipe-card__button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ----- КАСТОМНЫЙ СКРОЛЛ ДЛЯ ТЕКСТОВЫХ ПОЛЕЙ ----- */
+.recipe-card__text-input::-webkit-scrollbar {
+  width: 6px;
+}
+
+.recipe-card__text-input::-webkit-scrollbar-track {
+  background: #F0E7DB;
+  border-radius: 10px;
+}
+
+.recipe-card__text-input::-webkit-scrollbar-thumb {
+  background: #D7A86E;
+  border-radius: 10px;
+}
+
+.recipe-card__text-input::-webkit-scrollbar-thumb:hover {
+  background: #C1915E;
 }

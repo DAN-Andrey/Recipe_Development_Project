@@ -46,7 +46,7 @@ module.exports = (sequelize, DataTypes) => {
       ) {
         return {
           isValid: false,
-          error: "Имя пользователя не должно быть пустым",
+          alert: "Имя пользователя не должно быть пустым",
         };
       }
 

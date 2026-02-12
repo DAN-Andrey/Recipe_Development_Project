@@ -27,8 +27,8 @@ export default function OneRecipePage() {
       <h1 className="recipe-title">{recipe.title}</h1>
 
       <div className="recipe-meta">
-        <span>⏱ {recipe.cooking_time || "—"} мин</span>
-        <span>🥕 {recipe.ingredients_count || "—"} ингр.</span>
+        <span>⏱ {recipe.time || "—"} мин</span>
+        <span>🥕 {recipe.ingredients || "—"} ингр.</span>
       </div>
 
       <div className="recipe-section">
@@ -38,7 +38,7 @@ export default function OneRecipePage() {
 
       <div className="recipe-section">
         <h2>Приготовление</h2>
-        <p>{recipe.description || "Инструкция отсутствует"}</p>
+        <p>{recipe.instructions || "Инструкция отсутствует"}</p>
       </div>
 
       <button onClick={() => navigate(-1)} className="back-button">

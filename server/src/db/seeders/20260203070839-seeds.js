@@ -44,7 +44,8 @@ module.exports = {
       [
         {
           title: "Борщ",
-          image: "borsh.jpg",
+          image:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwSqkL1oFMO9Ahk_D8zf_9ofthTcF-68RBxA&s",
           time: 90,
           ingredients:
             "свекла 2шт, картофель 3шт, капуста 300г, морковь 1шт, лук 1шт, томатная паста 2ст.л, чеснок 2зубчика, сметана для подачи",
@@ -54,7 +55,8 @@ module.exports = {
         },
         {
           title: "Паста Карбонара",
-          image: "carbonara.jpg",
+          image:
+            "https://img.iamcook.ru/old/upl/recipes/cat/u-7a1b3a5f41e8f851b38f5611c5837796.JPG",
           time: 20,
           ingredients:
             "спагетти 250г, яйца 2шт, бекон 100г, сыр пармезан 50г, черный перец, соль",
@@ -64,7 +66,8 @@ module.exports = {
         },
         {
           title: "Куриный суп с лапшой",
-          image: "chicken-soup.jpg",
+          image:
+            "https://img.iamcook.ru/2022/upl/recipes/zen/u-6b08b7a7c21c071e29417ca146cbd867.JPG",
           time: 45,
           ingredients:
             "курица 500г, морковь 1шт, лук 1шт, картофель 3шт, лапша 100г, зелень, соль, перец",
@@ -75,7 +78,8 @@ module.exports = {
 
         {
           title: "Цезарь с курицей",
-          image: "caesar.jpg",
+          image:
+            "https://cdn.vkuso.ru/uploads/u25089_e75a8c73c127f04467cb38761c40b8a0.jpg",
           time: 30,
           ingredients:
             "куриное филе 300г, салат романо, помидоры черри 100г, пармезан 50г, сухарики, соус цезарь",
@@ -85,7 +89,8 @@ module.exports = {
         },
         {
           title: "Греческий салат",
-          image: "greek.jpg",
+          image:
+            "https://www.russianfood.com/dycontent/images_upl/557/big_556060.jpg",
           time: 15,
           ingredients:
             "огурцы 2шт, помидоры 2шт, перец 1шт, красный лук, фета 200г, маслины, оливковое масло, орегано",
@@ -95,7 +100,8 @@ module.exports = {
         },
         {
           title: "Стейк из говядины",
-          image: "steak.jpg",
+          image:
+            "https://halal-spb.ru/sites/default/files/styles/large/public/bd09da8cd90c4f5f8807f24785545d00.jpg?itok=KnyHC-n8",
           time: 25,
           ingredients:
             "говядина 400г, соль, перец, розмарин, чеснок, сливочное масло",
@@ -106,7 +112,8 @@ module.exports = {
 
         {
           title: "Шарлотка яблочная",
-          image: "sharlotka.jpg",
+          image:
+            "https://greenleaf.com.ua/wp-content/uploads/2021/11/recept_6720_vicv.jpeg",
           time: 50,
           ingredients:
             "яйца 4шт, сахар 1стакан, мука 1стакан, яблоки 3шт, ванилин, корица",
@@ -116,7 +123,8 @@ module.exports = {
         },
         {
           title: "Оливье классический",
-          image: "olivie.jpg",
+          image:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSATOvpqqooAPm6uNQDb-utNGDJ_SRs8GRC8g&s",
           time: 40,
           ingredients:
             "картофель 4шт, яйца 4шт, колбаса 300г, горошек 1банка, морковь 2шт, майонез, соль",
@@ -126,7 +134,8 @@ module.exports = {
         },
         {
           title: "Сырники",
-          image: "syrniki.jpg",
+          image:
+            "https://topfood.club/assets/components/phpthumbof/cache/2024-07-01-k6g8om-syirniki-iz-tvoroga.2ceee6ffad271e3be1f7409fa7a41c20.jpg",
           time: 25,
           ingredients:
             "творог 400г, яйцо 1шт, мука 4ст.л, сахар 2ст.л, ванилин, соль",
@@ -137,7 +146,8 @@ module.exports = {
 
         {
           title: "Плов",
-          image: "plov.jpg",
+          image:
+            "https://images.gastronom.ru/aovMYcGLbHtuJwEZdn2yUPxww-dA-zfM3dexGT3u-JY/pr:content-group-preview-image/g:ce/rs:auto:0:0:0/L2Ntcy9hbGwtaW1hZ2VzL2U3ODk0OGExLWE0ZjQtNGRjNS1hZjNiLTQ2MmNhMmY5ODgyNi5qcGc.webp",
           time: 120,
           ingredients:
             "баранина 500г, рис 300г, морковь 2шт, лук 2шт, чеснок, зира, куркума, масло",
@@ -147,7 +157,8 @@ module.exports = {
         },
         {
           title: "Лагман",
-          image: "lagman.jpg",
+          image:
+            "https://images.gastronom.ru/0zVqZ6KzTj6HTZM2bIxWIzMYdvLSCkEQS2BslFBANxg/pr:article-preview-image/g:ce/rs:auto:0:0:0/L2Ntcy9hbGwtaW1hZ2VzL2VjMDE3MjJhLTFhNjEtNDg1NC04YTcxLTM2OGZiNDUxZTA3ZS5qcGc.webp",
           time: 60,
           ingredients:
             "говядина 400г, лапша, перец, лук, морковь, помидоры, чеснок, зелень",
@@ -158,7 +169,8 @@ module.exports = {
 
         {
           title: "Тирамису",
-          image: "tiramisu.jpg",
+          image:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjLGF312p7V0rS3kxL8U76QvSlNLbHxx5hbA&s",
           time: 30,
           ingredients:
             "маскарпоне 500г, савоярди 200г, яйца 4шт, сахар, кофе, какао",
@@ -168,7 +180,8 @@ module.exports = {
         },
         {
           title: "Наполеон",
-          image: "napoleon.jpg",
+          image:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBySzyUJ2eSv1mB_no-yCucAA4MSt8831slQ&s",
           time: 120,
           ingredients:
             "тесто слоеное 500г, молоко 1л, яйца 4шт, мука 100г, сахар 200г, масло 100г",
@@ -179,7 +192,8 @@ module.exports = {
 
         {
           title: "Бургер",
-          image: "burger.jpg",
+          image:
+            "https://img.povar.ru/mobile/97/c1/ba/f7/burger_cezar-635278.jpg",
           time: 35,
           ingredients:
             "булочки 2шт, фарш 300г, сыр, салат, помидор, лук, соленые огурцы, соус",
@@ -189,7 +203,8 @@ module.exports = {
         },
         {
           title: "Картошка фри",
-          image: "fries.jpg",
+          image:
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNQn5eE3vcbN4UCcnfB76mjK1xjsIdbom5Rg&s",
           time: 30,
           ingredients: "картофель 500г, масло, соль, специи",
           instructions:
