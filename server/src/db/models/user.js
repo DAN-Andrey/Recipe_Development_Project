@@ -1,9 +1,15 @@
-'use strict';
-const { Model } = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
-      this.hasMany(models.Task, { foreignKey: 'user_id' });
+      this.hasMany(models.Recipe, { foreignKey: "user_id" });
+      this.belongsToMany(models.Recipe, {
+        through: models.Favorrites,
+        foreignKey: "user_id",
+        otherKey: "recipe_id",
+        as: "favorite",
+      });
     }
 
     static validateEmail(email) {
@@ -35,36 +41,36 @@ module.exports = (sequelize, DataTypes) => {
 
       if (
         !username ||
-        typeof username !== 'string' ||
+        typeof username !== "string" ||
         username.trim().length === 0
       ) {
         return {
           isValid: false,
-          error: 'Имя пользователя не должно быть пустым',
+          error: "Имя пользователя не должно быть пустым",
         };
       }
 
       if (
         !email ||
-        typeof email !== 'string' ||
+        typeof email !== "string" ||
         email.trim().length === 0 ||
         !this.validateEmail(email)
       ) {
         return {
           isValid: false,
-          error: 'Ошибка валидации адреса электронной почты',
+          error: "Ошибка валидации адреса электронной почты",
         };
       }
 
       if (
         !password ||
-        typeof password !== 'string' ||
+        typeof password !== "string" ||
         password.trim().length === 0 ||
         !this.validatePassword(password)
       ) {
         return {
           isValid: false,
-          error: 'Пароль не соответствует критериям валидации',
+          error: "Пароль не соответствует критериям валидации",
         };
       }
 
@@ -76,25 +82,25 @@ module.exports = (sequelize, DataTypes) => {
 
       if (
         !email ||
-        typeof email !== 'string' ||
+        typeof email !== "string" ||
         email.trim().length === 0 ||
         !this.validateEmail(email)
       ) {
         return {
           isValid: false,
-          error: 'Ошибка валидации адреса электронной почты',
+          error: "Ошибка валидации адреса электронной почты",
         };
       }
 
       if (
         !password ||
-        typeof password !== 'string' ||
+        typeof password !== "string" ||
         password.trim().length === 0 ||
         !this.validatePassword(password)
       ) {
         return {
           isValid: false,
-          error: 'Пароль не соответствует критериям валидации',
+          error: "Пароль не соответствует критериям валидации",
         };
       }
 
@@ -109,7 +115,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: 'User',
+      modelName: "User",
       hooks: {
         beforeCreate: (newUser) => {
           newUser.email = newUser.email.toLowerCase().trim();
