@@ -1,5 +1,4 @@
 const apiRouter = require("express").Router();
-const taskRouter = require("./task.router");
 const authRouter = require("./auth.router");
 const aiRouter = require("./ai.router");
 const formatResponse = require("../utils/formatResponse");
