@@ -33,7 +33,8 @@ class RecipeService {
   static async updateRecipeById(id, recipeData) {
     const recipeToUpdate = await Recipe.findByPk(id);
 
-    const { title, text } = recipeData;
+    const { title, description, image, cooking_time, ingredients_count } =
+      recipeData;
 
     // Если такой задачи не существует, вернем null
     if (!recipeToUpdate) return null;
@@ -42,9 +43,19 @@ class RecipeService {
     if (title) {
       recipeToUpdate.title = title;
     }
-    if (text) {
-      recipeToUpdate.text = text;
+    if (description) {
+      recipeToUpdate.description = description;
     }
+    if (image !== undefined) {
+      recipeToUpdate.image = image;
+    }
+    if (cooking_time !== undefined) {
+      recipeToUpdate.cooking_time = cooking_time;
+    }
+    if (ingredients_count !== undefined) {
+      recipeToUpdate.ingredients_count = ingredients_count;
+    }
+
     // сохраняем изменения в БД
     await recipeToUpdate.save();
 
