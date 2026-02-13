@@ -5,12 +5,23 @@ import "./Header.css";
 import UserApi from "../../entities/user/api/UserApi";
 import { setAccessToken } from "../../shared/lib/axiosInstance";
 import { CLIENT_ROUTES } from "../../shared/consts/clientRoutes";
+import { Menu } from "lucide-react";
 
 export default function Header({ user, setUser }) {
   async function handleSignOut() {
     await UserApi.signOut();
     setAccessToken("");
     setUser(null);
+    try {
+      setMenuOpen(false);
+    } catch (e) {
+      // ignore if menu state not available yet
+    }
+    try {
+      navigate(CLIENT_ROUTES.MAIN_PAGE);
+    } catch (e) {
+      // navigate may be undefined until hook runs; ignore
+    }
   }
 
   const [menuOpen, setMenuOpen] = useState(false);
@@ -49,7 +60,7 @@ export default function Header({ user, setUser }) {
             Главная
           </NavLink>
           <NavLink
-            to="/tasks"
+            to="/my-recipes"
             className={({ isActive }) =>
               isActive ? "header__link header__link--active" : "header__link"
             }
@@ -57,20 +68,12 @@ export default function Header({ user, setUser }) {
             Мои рецепты
           </NavLink>
           <NavLink
-            to="/counter"
+            to="/recipes"
             className={({ isActive }) =>
               isActive ? "header__link header__link--active" : "header__link"
             }
           >
             Рецепты
-          </NavLink>
-          <NavLink
-            to="/timer"
-            className={({ isActive }) =>
-              isActive ? "header__link header__link--active" : "header__link"
-            }
-          >
-            Еще что-то
           </NavLink>
         </nav>
 
@@ -80,11 +83,38 @@ export default function Header({ user, setUser }) {
             <>
               <span className="header__username">{user.username}</span>
               <button
-                onClick={handleSignOut}
                 className="header__link header__link--button"
+                onClick={() => setMenuOpen((s) => !s)}
+                aria-expanded={menuOpen}
+                aria-haspopup="true"
               >
-                Выход
+                <Menu size={18} />
               </button>
+
+              {menuOpen && (
+                <div className="header__dropdown">
+                  <button
+                    type="button"
+                    className="header__dropdown-item"
+                    onClick={() => {
+                      setMenuOpen(false);
+                      navigate(CLIENT_ROUTES.FAVORITES);
+                    }}
+                  >
+                    Избранное
+                  </button>
+                  <button
+                    type="button"
+                    className="header__dropdown-item"
+                    onClick={() => {
+                      setMenuOpen(false);
+                      handleSignOut();
+                    }}
+                  >
+                    Выход
+                  </button>
+                </div>
+              )}
             </>
           ) : (
             <>
@@ -94,7 +124,7 @@ export default function Header({ user, setUser }) {
                 aria-expanded={menuOpen}
                 aria-haspopup="true"
               >
-                Вход
+                <Menu size={18} />
               </button>
 
               {menuOpen && (
@@ -118,16 +148,6 @@ export default function Header({ user, setUser }) {
                     }}
                   >
                     Регистрация
-                  </button>
-                  <button
-                    type="button"
-                    className="header__dropdown-item"
-                    onClick={() => {
-                      setMenuOpen(false);
-                      navigate("/favorites");
-                    }}
-                  >
-                    Избранное
                   </button>
                 </div>
               )}

@@ -33,7 +33,7 @@ export default function SignInForm({ setUser }) {
     if (statusCode === 200) {
       setAccessToken(data.accessToken);
       setUser(data.user);
-      navigate('/tasks');
+      navigate('/my-recipes');
       setSignInData(initialValue);
     } else {
       alert(error || 'Ошибка при входе в приложение');
