@@ -10,14 +10,9 @@ export default function RecipeCard({ recipe, recipes, setRecipes, user }) {
   const navigate = useNavigate();
 
   const [plan, setPlan] = useState("");
-
   const [isEditing, setIsEditing] = useState(false);
-
   const [editedRecipe, setEditedRecipe] = useState({
     title: recipe.title,
-    text: recipe.text,
-    time: recipe.time,
-    ingredients: recipe.ingredients,
     instructions: recipe.instructions,
   });
 
@@ -31,10 +26,7 @@ export default function RecipeCard({ recipe, recipes, setRecipes, user }) {
   const generatePlan = async () => {
     const { statusCode, data } = await AiApi.generateText({
       title: recipe.title,
-      text: recipe.text,
-      time: recipe.time,
-      ingredients: recipe.ingredients,
-      instructions: recipe.instructions,
+      text: recipe.instructions,
     });
     if (statusCode === 200) {
       setPlan(data);
@@ -48,11 +40,8 @@ export default function RecipeCard({ recipe, recipes, setRecipes, user }) {
       setRecipes(recipes.map((recipe) => (recipe.id === id ? data : recipe)));
       setIsEditing(false);
       setEditedRecipe({
-        title: recipe.title,
-        text: recipe.text,
-        time: recipe.time,
-        ingredients: recipe.ingredients,
-        instructions: recipe.instructions,
+        title: data.title,
+        instructions: data.instructions,
       });
     }
   };
@@ -84,18 +73,24 @@ export default function RecipeCard({ recipe, recipes, setRecipes, user }) {
         </small>
       </div>
 
+      {/* Важное добавление — мета-инфа видна сразу */}
+      <div className="recipe-meta">
+        <span>⏱ {recipe.time || "—"} мин</span>
+        <span>🥕 {recipe.ingredients?.split("\n").length || "—"} ингр.</span>
+      </div>
+
       <div className="recipe-content">
         {isEditing ? (
           <textarea
             rows={2}
             cols={55}
-            name="text"
+            name="instructions"
             className="recipe-text-input"
-            value={editedRecipe.text}
+            value={editedRecipe.instructions}
             onChange={inputHandler}
           />
         ) : (
-          <p className="recipe-text">{recipe.text}</p>
+          <p className="recipe-text">{recipe.instructions}</p>
         )}
 
         <div className="recipe-controls">
@@ -112,7 +107,10 @@ export default function RecipeCard({ recipe, recipes, setRecipes, user }) {
                 <button
                   onClick={() => {
                     setIsEditing(false);
-                    setEditedRecipe(recipe);
+                    setEditedRecipe({
+                      title: recipe.title,
+                      instructions: recipe.instructions,
+                    });
                   }}
                   className="recipe-control-button delete-recipe-button"
                   title="Отменить"
@@ -141,7 +139,7 @@ export default function RecipeCard({ recipe, recipes, setRecipes, user }) {
           <button
             className="recipe-control-button ai-button"
             onClick={generatePlan}
-            title="Генерировать план выполнения задачи"
+            title="Советы по приготовлению"
           >
             <Bot color="black" />
           </button>
@@ -157,7 +155,7 @@ export default function RecipeCard({ recipe, recipes, setRecipes, user }) {
       </div>
       {plan && (
         <div className="plan">
-          <h3>План выполнения задачи</h3>
+          <h3>Советы по приготовлению</h3>
           <p>{plan}</p>
         </div>
       )}
