@@ -23,62 +23,82 @@ export default function MainPage({ user }) {
     fetchRecipes();
   }, []);
 
-  // Сортировка
-  const sortRecipes = (criteria) => {
-    const newOrder =
-      sortBy === criteria && sortOrder === "asc" ? "desc" : "asc";
-    setSortBy(criteria);
-    setSortOrder(newOrder);
-
-    const sorted = [...recipes].sort((a, b) => {
-      const valA =
-        criteria === "time"
-          ? a.time || 0
-          : a.ingredients?.split("\n").length || 0;
-      const valB =
-        criteria === "time"
-          ? b.time || 0
-          : b.ingredients?.split("\n").length || 0;
-
-      return newOrder === "asc" ? valA - valB : valB - valA;
-    });
-
-    setRecipes(sorted);
-  };
-
   return (
-    <>
-      <p className="welcome-message">Добро пожаловать!</p>
+    <div className="main-page">
+      {/* Приветствие */}
+      <p className="welcome-message">
+        Добро пожаловать! {user?.name || "Гость"}
+      </p>
 
-      <div className="app-container">
-        <div className="sort-controls">
-          <button
-            className={`sort-button ${sortBy === "time" ? "active" : ""}`}
-            onClick={() => sortRecipes("time")}
-          >
-            ⏰ Время {sortBy === "time" && (sortOrder === "asc" ? "↑" : "↓")}
-          </button>
-          <button
-            className={`sort-button ${sortBy === "ingredients" ? "active" : ""}`}
-            onClick={() => sortRecipes("ingredients")}
-          >
-            🥕 Ингредиенты{" "}
-            {sortBy === "ingredients" && (sortOrder === "asc" ? "↑" : "↓")}
-          </button>
-        </div>
-
-        <div className="recipes-grid">
-          {recipes.map((recipe) => (
-            <RecipeCard
-              key={recipe.id}
-              recipe={recipe}
-              setRecipes={setRecipes}
-              recipes={recipes}
-              user={user}
-            />
-          ))}
-        </div>
+      {/* Контейнер с карточками рецептов */}
+      <div className="recipes-grid">
+        {recipes.map((recipe) => (
+          <RecipeCard
+            key={recipe.id}
+            recipe={recipe}
+            setRecipes={setRecipes}
+            recipes={recipes}
+            user={user}
+          />
+        ))}
       </div>
-    </>
+    </div>
   );
 }
+
+
+//  // Сортировка
+//   const sortRecipes = (criteria) => {
+//     const newOrder =
+//       sortBy === criteria && sortOrder === "asc" ? "desc" : "asc";
+//     setSortBy(criteria);
+//     setSortOrder(newOrder);
+
+//     const sorted = [...recipes].sort((a, b) => {
+//       const valA =
+//         criteria === "time"
+//           ? a.time || 0
+//           : a.ingredients?.split("\n").length || 0;
+//       const valB =
+//         criteria === "time"
+//           ? b.time || 0
+//           : b.ingredients?.split("\n").length || 0;
+
+//       return newOrder === "asc" ? valA - valB : valB - valA;
+//     });
+
+//     setRecipes(sorted);
+//   };
+
+//   return (
+//     <>
+//       <p className="welcome-message">Добро пожаловать!</p>
+
+//       <div className="app-container">
+//         <div className="sort-controls">
+//           <button
+//             className={`sort-button ${sortBy === "time" ? "active" : ""}`}
+//             onClick={() => sortRecipes("time")}
+//           >
+//             ⏰ Время {sortBy === "time" && (sortOrder === "asc" ? "↑" : "↓")}
+//           </button>
+//           <button
+//             className={`sort-button ${sortBy === "ingredients" ? "active" : ""}`}
+//             onClick={() => sortRecipes("ingredients")}
+//           >
+//             🥕 Ингредиенты{" "}
+//             {sortBy === "ingredients" && (sortOrder === "asc" ? "↑" : "↓")}
+//           </button>
+//         </div>
+
+//         <div className="recipes-grid">
+//           {recipes.map((recipe) => (
+//             <RecipeCard
+//               key={recipe.id}
+//               recipe={recipe}
+//               setRecipes={setRecipes}
+//               recipes={recipes}
+//               user={user}
+//             />
+//           ))}
+//         </div>
