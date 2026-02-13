@@ -1,6 +1,7 @@
 const apiRouter = require("express").Router();
 const authRouter = require("./auth.router");
 const aiRouter = require("./ai.router");
+const favoritesRouter = require("./favorites.router");
 const formatResponse = require("../utils/formatResponse");
 const recipeRouter = require("./recipe.router");
 
