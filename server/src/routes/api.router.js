@@ -7,6 +7,7 @@ const recipeRouter = require("./recipe.router");
 
 apiRouter.use("/auth", authRouter);
 apiRouter.use("/ai", aiRouter);
+apiRouter.use("/favorites", favoritesRouter);
 apiRouter.use("/recipe", recipeRouter);
 
 // Обрабатываем несуществующие пути в API
