@@ -1,99 +1,73 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./MainPage.css";
 import RecipeApi from "../../entities/recipe/api/RecipeApi";
 import RecipeCard from "../../entities/recipe/ui/RecipeCard/RecipeCard";
+
 export default function MainPage({ user }) {
   const [recipes, setRecipes] = useState([]);
+  const [sortBy, setSortBy] = useState(null); // 'time' или 'ingredients'
+  const [sortOrder, setSortOrder] = useState("asc"); // 'asc' или 'desc'
 
+  // Загрузка всех рецептов
   useEffect(() => {
-    async function getRecipes() {
-      const { data, error } = await RecipeApi.getAllRecipe();
-
-      if (error) {
-        alert(error);
-        return;
+    const fetchRecipes = async () => {
+      try {
+        const { data } = await RecipeApi.getAllRecipes();
+        //  перемешиваем массив
+        const shuffled = [...(data || [])].sort(() => Math.random() - 0.5);
+        setRecipes(shuffled);
+      } catch (error) {
+        console.error(error);
       }
-      setRecipes(data);
-    }
-    getRecipes();
+    };
+    fetchRecipes();
   }, []);
 
-  const initialFormState = {
-    title: "",
-    image: "",
-    time: "",
-    ingredients: "",
-    instructions: "",
+  // Сортировка
+  const sortRecipes = (criteria) => {
+    const newOrder =
+      sortBy === criteria && sortOrder === "asc" ? "desc" : "asc";
+    setSortBy(criteria);
+    setSortOrder(newOrder);
+
+    const sorted = [...recipes].sort((a, b) => {
+      const valA =
+        criteria === "time"
+          ? a.time || 0
+          : a.ingredients?.split("\n").length || 0;
+      const valB =
+        criteria === "time"
+          ? b.time || 0
+          : b.ingredients?.split("\n").length || 0;
+
+      return newOrder === "asc" ? valA - valB : valB - valA;
+    });
+
+    setRecipes(sorted);
   };
-
-  const [newRecipe, setNewRecipe] = useState(initialFormState);
-
-  function inputChangeHandler(event) {
-    const { name, value } = event.target;
-    setNewRecipe((current) => ({
-      ...current,
-      [name]: value,
-    }));
-  }
-
-  async function addNewRecipe(event) {
-    event.preventDefault();
-
-    const { data, error } = await RecipeApi.createRecipe(newRecipe);
-    setRecipes((current) => [...current, data]);
-
-    setNewRecipe(initialFormState);
-  }
-
-  async function deleteRecipe(id) {
-    const response = await RecipeApi.deleteRecipe(id);
-
-    setRecipes((current) => current.filter((recipe) => recipe.id !== id));
-  }
 
   return (
     <>
       <p className="welcome-message">Добро пожаловать!</p>
+
       <div className="app-container">
-        <form onSubmit={addNewRecipe}>
-          <input
-            type="text"
-            name="title"
-            placeholder="Название рецепта"
-            onChange={inputChangeHandler}
-            value={newRecipe.title}
-          />
-          <input
-            type="text"
-            name="image"
-            placeholder="URL изображения"
-            onChange={inputChangeHandler}
-            value={newRecipe.image}
-          />
-          <input
-            type="number"
-            name="time"
-            placeholder="Время готовки (мин)"
-            onChange={inputChangeHandler}
-            value={newRecipe.time}
-          />
-          <input
-            type="text"
-            name="ingredients"
-            placeholder="Ингредиенты"
-            onChange={inputChangeHandler}
-            value={newRecipe.ingredients}
-          />
-          <input
-            type="text"
-            name="instructions"
-            placeholder="Инструкции"
-            onChange={inputChangeHandler}
-            value={newRecipe.instructions}
-          />
-          <button>Создать</button>
-        </form>
-        <div className="todo-container">
+        <div className="sort-controls">
+          <button
+            className={`sort-button ${sortBy === "time" ? "active" : ""}`}
+            onClick={() => sortRecipes("time")}
+          >
+            ⏰ Время {sortBy === "time" && (sortOrder === "asc" ? "↑" : "↓")}
+          </button>
+          <button
+            className={`sort-button ${sortBy === "ingredients" ? "active" : ""}`}
+            onClick={() => sortRecipes("ingredients")}
+          >
+            🥕 Ингредиенты{" "}
+            {sortBy === "ingredients" && (sortOrder === "asc" ? "↑" : "↓")}
+          </button>
+        </div>
+
+        <div className="recipes-grid">
           {recipes.map((recipe) => (
             <RecipeCard
               key={recipe.id}
