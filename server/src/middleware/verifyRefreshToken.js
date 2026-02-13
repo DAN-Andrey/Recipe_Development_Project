@@ -6,6 +6,20 @@ function verifyRefreshToken(req, res, next) {
   try {
     const { refreshToken } = req.cookies;
 
+    // Проверяем наличие токена ДО попытки верификации
+    if (!refreshToken) {
+      return res
+        .status(401)
+        .json(
+          formatResponse(
+            401,
+            'Refresh token не найден',
+            null,
+            'Refresh token не найден в cookies',
+          ),
+        );
+    }
+
     const { user } = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
 
     if (!user) {
