@@ -12,93 +12,92 @@ export default function MainPage({ user }) {
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        const { data } = await RecipeApi.getAllRecipes();
+        const response = await RecipeApi.getAllRecipes();
+        console.log("=== RecipeApi Response ===");
+        console.log("Full response:", response);
+        console.log("Data:", response.data);
+        console.log("Error:", response.error);
+
+        const recipeData = response.data || [];
+        console.log("Recipe array:", recipeData);
+        console.log("Recipe count:", recipeData.length);
+
         //  перемешиваем массив
-        const shuffled = [...(data || [])].sort(() => Math.random() - 0.5);
+        const shuffled = [...recipeData].sort(() => Math.random() - 0.5);
+        console.log("Shuffled:", shuffled);
+
         setRecipes(shuffled);
       } catch (error) {
-        console.error(error);
+        console.error("=== Error fetching recipes ===", error);
       }
     };
     fetchRecipes();
   }, []);
 
+  // Сортировка
+  const sortRecipes = (criteria) => {
+    console.log("=== sortRecipes called ===");
+    console.log("criteria:", criteria);
+    console.log("sortBy:", sortBy);
+    console.log("sortOrder:", sortOrder);
+
+    const newOrder =
+      sortBy === criteria && sortOrder === "asc" ? "desc" : "asc";
+    console.log("newOrder:", newOrder);
+
+    setSortBy(criteria);
+    setSortOrder(newOrder);
+
+    const sorted = [...recipes].sort((a, b) => {
+      const valA =
+        criteria === "time" ? a.time || 0 : a.ingredients?.length || 0;
+      const valB =
+        criteria === "time" ? b.time || 0 : b.ingredients?.length || 0;
+
+      console.log(`Сравнение: ${a.title}(${valA}) vs ${b.title}(${valB})`);
+
+      return newOrder === "asc" ? valA - valB : valB - valA;
+    });
+
+    console.log("Sorted array:", sorted);
+    setRecipes(sorted);
+  };
+
   return (
-    <div className="main-page">
-      {/* Приветствие */}
+    <>
       <p className="welcome-message">
-        Добро пожаловать! {user?.name || "Гость"}
+        Добро пожаловать, {user?.username || "Гость"}!
       </p>
 
-      {/* Контейнер с карточками рецептов */}
-      <div className="recipes-grid">
-        {recipes.map((recipe) => (
-          <RecipeCard
-            key={recipe.id}
-            recipe={recipe}
-            setRecipes={setRecipes}
-            recipes={recipes}
-            user={user}
-          />
-        ))}
+      <div className="app-container">
+        <div className="sort-controls">
+          <button
+            className={`sort-button ${sortBy === "time" ? "active" : ""}`}
+            onClick={() => sortRecipes("time")}
+          >
+            ⏰ Время {sortBy === "time" && (sortOrder === "asc" ? "↑" : "↓")}
+          </button>
+          <button
+            className={`sort-button ${sortBy === "ingredients" ? "active" : ""}`}
+            onClick={() => sortRecipes("ingredients")}
+          >
+            🥕 Ингредиенты{" "}
+            {sortBy === "ingredients" && (sortOrder === "asc" ? "↑" : "↓")}
+          </button>
+        </div>
+
+        <div className="recipes-grid">
+          {recipes.map((recipe) => (
+            <RecipeCard
+              key={recipe.id}
+              recipe={recipe}
+              setRecipes={setRecipes}
+              recipes={recipes}
+              user={user}
+            />
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
-
-
-//  // Сортировка
-//   const sortRecipes = (criteria) => {
-//     const newOrder =
-//       sortBy === criteria && sortOrder === "asc" ? "desc" : "asc";
-//     setSortBy(criteria);
-//     setSortOrder(newOrder);
-
-//     const sorted = [...recipes].sort((a, b) => {
-//       const valA =
-//         criteria === "time"
-//           ? a.time || 0
-//           : a.ingredients?.split("\n").length || 0;
-//       const valB =
-//         criteria === "time"
-//           ? b.time || 0
-//           : b.ingredients?.split("\n").length || 0;
-
-//       return newOrder === "asc" ? valA - valB : valB - valA;
-//     });
-
-//     setRecipes(sorted);
-//   };
-
-//   return (
-//     <>
-//       <p className="welcome-message">Добро пожаловать!</p>
-
-//       <div className="app-container">
-//         <div className="sort-controls">
-//           <button
-//             className={`sort-button ${sortBy === "time" ? "active" : ""}`}
-//             onClick={() => sortRecipes("time")}
-//           >
-//             ⏰ Время {sortBy === "time" && (sortOrder === "asc" ? "↑" : "↓")}
-//           </button>
-//           <button
-//             className={`sort-button ${sortBy === "ingredients" ? "active" : ""}`}
-//             onClick={() => sortRecipes("ingredients")}
-//           >
-//             🥕 Ингредиенты{" "}
-//             {sortBy === "ingredients" && (sortOrder === "asc" ? "↑" : "↓")}
-//           </button>
-//         </div>
-
-//         <div className="recipes-grid">
-//           {recipes.map((recipe) => (
-//             <RecipeCard
-//               key={recipe.id}
-//               recipe={recipe}
-//               setRecipes={setRecipes}
-//               recipes={recipes}
-//               user={user}
-//             />
-//           ))}
-//         </div>

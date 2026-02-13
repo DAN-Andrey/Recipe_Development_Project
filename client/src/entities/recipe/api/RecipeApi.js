@@ -1,28 +1,48 @@
 import { axiosInstance } from "../../../shared/lib/axiosInstance";
 
 export default class RecipeApi {
-  static async getAllRecipe() {
+  static async getAllRecipes() {
     const response = await axiosInstance.get("/recipe");
-    return response.data;
+    return {
+      data: response.data.data,
+      error: response.data.error,
+      statusCode: response.data.status,
+    };
   }
 
   static async getRecipeById(id) {
     const response = await axiosInstance.get(`/recipe/${id}`);
-    return response.data;
+    return {
+      data: response.data.data,
+      error: response.data.error,
+      statusCode: response.data.status,
+    };
   }
 
   static async createRecipe(recipeData) {
     const response = await axiosInstance.post("/recipe", recipeData);
-    return response.data;
+    return {
+      data: response.data.data,
+      error: response.data.error,
+      statusCode: response.data.status,
+    };
   }
 
   static async updateRecipe(id, recipeData) {
     const response = await axiosInstance.put(`/recipe/${id}`, recipeData);
-    return response.data;
+    return {
+      data: response.data.data,
+      error: response.data.error,
+      statusCode: response.data.status,
+    };
   }
 
   static async deleteRecipe(id) {
     const response = await axiosInstance.delete(`/recipe/${id}`);
-    return response.data;
+    return {
+      data: response.data.data,
+      error: response.data.error,
+      statusCode: response.data.status,
+    };
   }
 }
