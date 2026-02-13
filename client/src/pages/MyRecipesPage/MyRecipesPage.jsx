@@ -20,7 +20,7 @@ export default function MyRecipesPage({ user }) {
   // Загрузка рецептов пользователя при монтировании
   useEffect(() => {
     if (!user) {
-      navigate(CLIENT_ROUTES.MAIN_PAGE);
+      navigate(CLIENT_ROUTES.AUTH);
       return;
     }
 
