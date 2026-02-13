@@ -148,7 +148,7 @@ export default function RecipeCard({ recipe, recipes, setRecipes, user }) {
 
           <button
             className="recipe-control-button details-button"
-            onClick={() => navigate(`${CLIENT_ROUTES.TASKS}/${recipe.id}`)}
+            onClick={() => navigate(`${CLIENT_ROUTES.RECIPES}/${recipe.id}`)}
             title="Подробнее"
           >
             <ChevronRight />
