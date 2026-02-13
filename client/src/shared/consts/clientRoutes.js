@@ -1,7 +1,7 @@
 export const CLIENT_ROUTES = {
-  MAIN_PAGE: '/',
-  TIMER: '/timer',
-  TASKS: '/tasks',
-  COUNTER: '/counter',
-  AUTH: '/auth',
+  MAIN_PAGE: "/",
+  TIMER: "/timer",
+  RECIPES: "/recipes",
+  COUNTER: "/counter",
+  AUTH: "/auth",
 };
