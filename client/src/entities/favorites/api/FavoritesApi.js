@@ -12,7 +12,9 @@ export default class FavoritesApi {
   }
 
   static async removeFavorite(recipeId) {
-    const response = await axiosInstance.delete(`/favorites/${recipeId}`);
+    // Server currently exposes a toggle endpoint (POST /favorites)
+    // which will remove the favorite if it already exists.
+    const response = await axiosInstance.post("/favorites", { recipeId });
     return response.data;
   }
 
