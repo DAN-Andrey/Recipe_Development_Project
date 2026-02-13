@@ -65,10 +65,7 @@ export default function MainPage({ user }) {
 
   return (
     <>
-      <p className="welcome-message">
-        Добро пожаловать, {user?.username || "Гость"}!
-      </p>
-
+     
       <div className="app-container">
         <div className="sort-controls">
           <button
