@@ -168,7 +168,7 @@ class RecipeController {
 
     if (
       !instructions ||
-      typeof description !== "string" ||
+      typeof instructions !== "string" ||
       instructions.trim().length === 0
     ) {
       return res

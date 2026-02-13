@@ -1,0 +1,140 @@
+.api-recipes-page {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.api-recipes-page h1 {
+  text-align: center;
+  font-size: 2rem;
+  color: #2c2c2c;
+  margin-bottom: 40px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+/* ===== ПОЛЕ ПОИСКА ===== */
+.search-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.search-input {
+  width: 100%;
+  padding: 14px 20px;
+  font-size: 1rem;
+  border: 2px solid #e8e2da;
+  border-radius: 40px;
+  background: #ffffff;
+  color: #2c2c2c;
+  transition: all 0.2s ease;
+  font-family: "Inter", sans-serif;
+}
+
+.search-input::placeholder {
+  color: #b8a69a;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: #d7a86e;
+  box-shadow: 0 0 0 4px rgba(215, 168, 110, 0.1);
+}
+
+/* ===== СОСТОЯНИЯ ЗАГРУЗКИ И ОШИБОК ===== */
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 20px;
+  font-size: 1.1rem;
+  color: #8b6b4d;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.error-message {
+  background: #fff3cd;
+  border: 1px solid #ffc107;
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 40px;
+  color: #856404;
+  text-align: center;
+}
+
+.error-message p {
+  margin: 0;
+  font-size: 1rem;
+}
+
+/* ===== ИНФОРМАЦИЯ О РЕЗУЛЬТАТАХ ===== */
+.results-info {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #8b6b4d;
+  font-size: 0.95rem;
+}
+
+.results-info strong {
+  color: #d7a86e;
+  font-weight: 600;
+}
+
+/* ===== СЕТКА РЕЦЕПТОВ ===== */
+.recipes-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+@media (max-width: 1024px) {
+  .recipes-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .recipes-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== ПУСТЫЕ СОСТОЯНИЯ ===== */
+.no-results,
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 80px 20px;
+  text-align: center;
+  color: #8b6b4d;
+}
+
+.no-results p,
+.empty-state p {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.empty-state .hint {
+  font-size: 0.9rem;
+  color: #b8a69a;
+  margin-top: 12px;
+  font-style: italic;
+}

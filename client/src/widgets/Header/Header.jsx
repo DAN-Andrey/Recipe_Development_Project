@@ -75,6 +75,14 @@ export default function Header({ user, setUser }) {
           >
             Рецепты
           </NavLink>
+          <NavLink
+            to="/recipes-from-api"
+            className={({ isActive }) =>
+              isActive ? "header__link header__link--active" : "header__link"
+            }
+          >
+            Рецепты ВСЕ
+          </NavLink>
         </nav>
 
         {/* Пользовательское меню */}

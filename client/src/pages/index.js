@@ -4,8 +4,17 @@ import OneRecipePage from "./OneRecipePage/OneRecipePage";
 import AuthPage from "./AuthPage/AuthPage";
 import FavoritesPage from "./FavoritesPage/FavoritesPage";
 import MyRecipesPage from "./MyRecipesPage/MyRecipesPage";
+import RecipesFromAPI from "./RecipesFromAPI/RecipesFromAPI";
 
 // файл с названием index запускается при обращении к папке, в которой он лежит.
 // Обычно используются для реэкспорта - для более удобной группировки файлов и сокращения импортов
 
-export { MainPage, RecipesPage, OneRecipePage, AuthPage, FavoritesPage, MyRecipesPage };
+export {
+  MainPage,
+  RecipesPage,
+  OneRecipePage,
+  AuthPage,
+  FavoritesPage,
+  MyRecipesPage,
+  RecipesFromAPI,
+};
