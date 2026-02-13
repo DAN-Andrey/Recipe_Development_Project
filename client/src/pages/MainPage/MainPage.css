@@ -1,0 +1,62 @@
+.welcome-message {
+  text-align: center;
+  font-size: 1.5rem;
+  color: #4a4a4a;
+  margin: 40px 0 20px;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.sort-controls {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+.sort-button {
+  padding: 8px 20px;
+  border: 1px solid #e8e2da;
+  background: white;
+  border-radius: 40px;
+  font-size: 0.95rem;
+  color: #6b6b6b;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.sort-button:hover {
+  background: #f5f3f0;
+  border-color: #d0c8bc;
+}
+
+.sort-button.active {
+  background: #f0ede8;
+  border-color: #b0a89b;
+  color: #2c2c2c;
+}
+
+.recipes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* Адаптивность */
+@media (max-width: 640px) {
+  .sort-controls {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .sort-button {
+    width: 200px;
+  }
+
+  .welcome-message {
+    font-size: 1.3rem;
+    margin: 30px 0 15px;
+  }
+}
