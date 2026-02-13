@@ -1,0 +1,31 @@
+.favorites-page {
+  max-width: 1200px;
+  width: 90%;
+  margin: 40px auto;
+  padding-bottom: 60px;
+}
+
+.favorites-title {
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: #2c2c2c;
+  margin-bottom: 32px;
+  letter-spacing: -0.01em;
+  border-bottom: 1px solid #f0ede8;
+  padding-bottom: 16px;
+}
+
+.favorites-empty {
+  text-align: center;
+  color: #8b8b8b;
+  font-size: 1.1rem;
+  padding: 60px 20px;
+  background: #faf9f7;
+  border-radius: 16px;
+}
+
+.favorites-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+}
