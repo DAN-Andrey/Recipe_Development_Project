@@ -36,10 +36,10 @@ export default function MainPage({ user }) {
 
   // Сортировка
   const sortRecipes = (criteria) => {
-    console.log("=== sortRecipes called ===");
-    console.log("criteria:", criteria);
-    console.log("sortBy:", sortBy);
-    console.log("sortOrder:", sortOrder);
+    // console.log("=== sortRecipes called ===");
+    // console.log("criteria:", criteria);
+    // console.log("sortBy:", sortBy);
+    // console.log("sortOrder:", sortOrder);
 
     const newOrder =
       sortBy === criteria && sortOrder === "asc" ? "desc" : "asc";
@@ -59,7 +59,7 @@ export default function MainPage({ user }) {
       return newOrder === "asc" ? valA - valB : valB - valA;
     });
 
-    console.log("Sorted array:", sorted);
+    // console.log("Sorted array:", sorted);
     setRecipes(sorted);
   };
 

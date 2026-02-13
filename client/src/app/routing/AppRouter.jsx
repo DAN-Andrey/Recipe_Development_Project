@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router";
 import Layout from "../Layout/Layout";
-import { MainPage, RecipesPage, OneRecipePage, AuthPage, FavoritesPage } from "../../pages";
+import { MainPage, RecipesPage, OneRecipePage, AuthPage, FavoritesPage, MyRecipesPage } from "../../pages";
 import { CLIENT_ROUTES } from "../../shared/consts/clientRoutes";
 
 export default function AppRouter({ setUser, user }) {
@@ -23,6 +23,10 @@ export default function AppRouter({ setUser, user }) {
         <Route
           path={CLIENT_ROUTES.FAVORITES}
           element={<FavoritesPage user={user} />}
+        />
+        <Route
+          path={CLIENT_ROUTES.MY_RECIPES}
+          element={<MyRecipesPage user={user} />}
         />
       </Route>
     </Routes>
